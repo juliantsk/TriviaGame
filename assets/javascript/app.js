@@ -65,7 +65,7 @@ $(document).ready(function() {
     // Start button begins questions.
     $("#start").on("click", startQuestions);
     // Choices show the correct answer.
-    $("#game").on("click", ".choices", displayAnswer);
+    $("#game").on("click", ".choices", answerQuestion);
 
     // Display question to div#game.
     function displayQuestion() {
@@ -81,10 +81,12 @@ $(document).ready(function() {
 
     // Display the answer to the previous question, and add to the total answers either correct, incorrect, or unanswered.
     function displayAnswer() {
-        chosen = $(this).attr("value");
+        clearInterval(showQuestion);
+        console.log(chosen);
         var q = questions[count]
+        console.log(q.answer);
         $("#game").empty()
-        if (chosen === q.answer) {
+        if (chosen == q.answer) {
             answers.correct += 1;
             $("#game").append($("<h2>").html("Yes!"));
         } else if (chosen == null) {
@@ -95,6 +97,9 @@ $(document).ready(function() {
             $("#game").append($("<h2>").html("Nope!"));
         }
         $("#game").append($("<h3>").html("The correct answer was " + q.choices[q.answer] + "."));
+        chosen = undefined;
+        console.log(chosen);
+        showQuestion = setInterval(nextQuestion, 1000 * 5);
     };
 
     // Display the results.
@@ -108,37 +113,33 @@ $(document).ready(function() {
 
     // Increments through the questions and records correct answers.
     function nextQuestion() {
-        clearInterval(showQuestion);
-        displayAnswer();
+        timer.stop();
         count++;
-        timer.reset();
+        clearInterval(showQuestion);
         if (!(count === questions.length)) {
             console.log("first");
-            setInterval(startQuestions(), 1000 * 5);
+            startQuestions();
         } else {
             console.log("second");
-            setInterval(displayResults(), 1000 * 5);
+            displayResults();
         };
     };
 
     // Starts the set of questions with an interval of 30 seconds.
     function startQuestions() {
         displayQuestion();
-        showQuestion = setInterval(nextQuestion, 1000 * 30);
+        showQuestion = setInterval(displayAnswer, 1000 * 30);
     };
 
     // Function triggered by chosing an answer.
     function answerQuestion() {
-        clearInterval(showQuestion);
+        chosen = $(this).attr("value");
         displayAnswer();
     };
 
     // Timer object.
     var timer = {
         time: 30,
-        reset: function() {
-            timer.time = 30;
-        },
         start: function() {
             if (!timerRunning) {
                 intervalId = setInterval(timer.count, 1000);
@@ -146,6 +147,7 @@ $(document).ready(function() {
             }
         },
         stop: function() {
+            timer.time = 30;
             clearInterval(intervalId);
             timerRunning = false;
         },
