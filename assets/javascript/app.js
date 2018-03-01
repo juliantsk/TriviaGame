@@ -51,6 +51,7 @@ var questions = [{
 ];
 
 var count = 0;
+var chosen;
 var showQuestion;
 var timerRunning = false;
 var intervalId;
@@ -63,34 +64,61 @@ var answers = {
 $(document).ready(function() {
     // Start button begins questions.
     $("#start").on("click", startQuestions);
+    // Choices show the correct answer.
+    $("#game").on("click", ".choices", displayAnswer);
 
     // Display question to div#game.
     function displayQuestion() {
-        console.log("dQ");
         var q = questions[count]
-        console.log(q.question);
         timer.start();
         $("#game").empty()
             .append($("<h2>").html("Time Remaining: <span id='timer'>" + timer.time + "</span> seconds"))
             .append($("<h2>").text(q.question));
         for (i = 0; q.choices[i]; i++) {
-            $("#game").append($("<h3>").addClass("choices").text(q.choices[i]));
+            $("#game").append($("<h3>").addClass("choices").attr("value", i).text(q.choices[i]));
         };
+    };
+
+    // Display the answer to the previous question, and add to the total answers either correct, incorrect, or unanswered.
+    function displayAnswer() {
+        chosen = $(this).attr("value");
+        var q = questions[count]
+        $("#game").empty()
+        if (chosen === q.answer) {
+            answers.correct += 1;
+            $("#game").append($("<h2>").html("Yes!"));
+        } else if (chosen == null) {
+            answers.unanswered += 1;
+            $("#game").append($("<h2>").html("Out of Time!"));
+        } else {
+            answers.wrong += 1;
+            $("#game").append($("<h2>").html("Nope!"));
+        }
+        $("#game").append($("<h3>").html("The correct answer was " + q.choices[q.answer] + "."));
+    };
+
+    // Display the results.
+    function displayResults() {
+        $("#game").empty()
+            .append($("<h2>").text("All done! Here are your results!"))
+            .append($("<h2>").text("Correct Answers: " + answers.correct))
+            .append($("<h2>").text("Wrong Answers: " + answers.wrong))
+            .append($("<h2>").text("Unanswered: " + answers.unanswered));
     };
 
     // Increments through the questions and records correct answers.
     function nextQuestion() {
+        clearInterval(showQuestion);
+        displayAnswer();
         count++;
         timer.reset();
-        showAnswer();
-        showQuestion = setInterval(displayQuestion(), 1000 * 5);
-        if (count === questions.length) {
-            $("#game").html("")
-                .append("All done! Here are your results!")
-                .append("Correct Answers: " + answers.correct)
-                .append("Wrong Answers: " + answers.wrong)
-                .append("Unanswered: " + answers.unanswered);
-        }
+        if (!(count === questions.length)) {
+            console.log("first");
+            setInterval(startQuestions(), 1000 * 5);
+        } else {
+            console.log("second");
+            setInterval(displayResults(), 1000 * 5);
+        };
     };
 
     // Starts the set of questions with an interval of 30 seconds.
@@ -102,7 +130,7 @@ $(document).ready(function() {
     // Function triggered by chosing an answer.
     function answerQuestion() {
         clearInterval(showQuestion);
-        answerScreen();
+        displayAnswer();
     };
 
     // Timer object.
