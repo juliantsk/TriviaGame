@@ -66,7 +66,23 @@ $(document).ready(function() {
     $("#start").on("click", startQuestions);
     // Choices show the correct answer.
     $("#game").on("click", ".choices", answerQuestion);
+    // Restart button.
+    $("#game").on("click", "#restart", restartGame);
 
+    // Restart game.
+    function restartGame() {
+        count = 0;
+        chosen = undefined;
+        showQuestion;
+        timerRunning = false;
+        intervalId;
+        answers = {
+            correct: 0,
+            wrong: 0,
+            unanswered: 0
+        }
+        startQuestions();
+    };
     // Display question to div#game.
     function displayQuestion() {
         var q = questions[count]
@@ -108,7 +124,8 @@ $(document).ready(function() {
             .append($("<h2>").text("All done! Here are your results!"))
             .append($("<h2>").text("Correct Answers: " + answers.correct))
             .append($("<h2>").text("Wrong Answers: " + answers.wrong))
-            .append($("<h2>").text("Unanswered: " + answers.unanswered));
+            .append($("<h2>").text("Unanswered: " + answers.unanswered))
+            .append($("<button>").attr("id", "restart").text("Try Again"));
     };
 
     // Increments through the questions and records correct answers.
