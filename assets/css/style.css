@@ -23,6 +23,9 @@ body {
     background-color: var(--dBlue);
 }
 
+
+/* Header Styling */
+
 #oval,
 .triangle-down,
 .title,
@@ -78,6 +81,12 @@ body {
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+
+
+/* END Header Styling  */
+
+
+/* Game Styling  */
 
 #game {
     margin: 16vmax auto 0 auto;
@@ -180,6 +189,12 @@ img#restart {
     bottom: 31vmax;
 }
 
+
+/* END Main Styling  */
+
+
+/* Mobile Styling  */
+
 @media screen and (max-width: 750px) {
      :root {
         --font-size: 6vmax;
@@ -209,3 +224,6 @@ img#restart {
         bottom: 0px;
     }
 }
+
+
+/* END Mobile Styling  */
