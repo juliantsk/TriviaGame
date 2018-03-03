@@ -1,0 +1,84 @@
+:root {
+    --red: #e30922;
+    --yellow: #fcd720;
+    --dBlue: #1d4ba0;
+    --lBlue: #02add8;
+    --oval-unit: 8.2vmax;
+    --oval-height: calc(var(--oval-unit)*1.5);
+    --oval-width: calc(var(--oval-unit)*4);
+    --title-height: 2vmax;
+    --shadow: 0.1vmax 0.2vmax black;
+}
+
+body {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2vmax;
+    color: #02add8;
+    text-shadow: var(--shadow);
+    line-height: 3vmax;
+    margin: auto 0;
+    text-align: center;
+    background-color: var(--dBlue);
+}
+
+.title {
+    font-size: 6vmax;
+    font-family: 'Simonetta', cursive;
+    color: var(--red);
+    z-index: 2;
+    position: absolute;
+    top: calc(var(--title-height) + 8.75vmax);
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+#seinfeld {
+    font-size: 10vmax;
+    top: var(--title-height);
+}
+
+#oval {
+    box-shadow: var(--shadow);
+    position: absolute;
+    top: calc(var(--title-height) - 1vmax);
+    left: 50%;
+    margin: auto 0px;
+    z-index: 1;
+    width: var(--oval-width);
+    height: var(--oval-height);
+    transform: rotate(-7deg) translate(-50%, 0);
+    background: var(--yellow);
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+#game {
+    margin: 22vmax auto 0 auto;
+    max-width: calc(960px - 1vw)
+}
+
+button {
+    font-family: 'Oswald', sans-serif;
+    background-color: var(--red);
+    border: none;
+    color: var(--lBlue);
+    padding: 5vmax;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#start {}
+
+h2 {}
+
+.choices:hover {
+    color: var(--red);
+    background-color: var(--yellow);
+}
+
+h3 {}
+
+#restart {}
