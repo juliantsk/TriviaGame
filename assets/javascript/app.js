@@ -88,7 +88,7 @@ $(document).ready(function() {
         var q = questions[count]
         timer.start();
         $("#game").empty()
-            .append($("<h2>").html("Time Remaining: <span id='timer'>" + timer.time + "</span> seconds"))
+            .append($("<h2>").attr("id", "remaining").html("Time Remaining: <span id='timer'>" + timer.time + "</span> seconds"))
             .append($("<h2>").text(q.question));
         for (i = 0; q.choices[i]; i++) {
             $("#game").append($("<h3>").addClass("choices").attr("value", i).text(q.choices[i]));
@@ -98,23 +98,32 @@ $(document).ready(function() {
     // Display the answer to the previous question, and add to the total answers either correct, incorrect, or unanswered.
     function displayAnswer() {
         clearInterval(showQuestion);
-        console.log(chosen);
         var q = questions[count]
-        console.log(q.answer);
         $("#game").empty()
+        $("#game").append($("<h3>").attr("id", "answer").html("The correct answer was <span style='color: var(--red)'>" + q.choices[q.answer] + "</span>."));
         if (chosen == q.answer) {
             answers.correct += 1;
-            $("#game").append($("<h2>").html("Yes!"));
+            $("#game")
+                .append($("<div>").attr("id", "tv-image")
+                    .append($("<h2>").attr("id", "result-text").html("Yes!"))
+                    .append($("<img>").attr({ src: "assets/images/tv.png", id: "tv" }))
+                    .append($("<img>").attr({ src: "assets/images/yes.png", class: "result", id: "yes" })));
         } else if (chosen == null) {
             answers.unanswered += 1;
-            $("#game").append($("<h2>").html("Out of Time!"));
+            $("#game")
+                .append($("<div>").attr("id", "tv-image")
+                    .append($("<h2>").attr("id", "result-text").html("Out of Time!"))
+                    .append($("<img>").attr({ src: "assets/images/tv.png", id: "tv" }))
+                    .append($("<img>").attr({ src: "assets/images/timeout.png", class: "result", id: "timeout" })));
         } else {
             answers.wrong += 1;
-            $("#game").append($("<h2>").html("Nope!"));
+            $("#game")
+                .append($("<div>").attr("id", "tv-image")
+                    .append($("<h2>").attr("id", "result-text").html("Nope!"))
+                    .append($("<img>").attr({ src: "assets/images/tv.png", id: "tv" }))
+                    .append($("<img>").attr({ src: "assets/images/nope.png", class: "result", id: "nope" })));
         }
-        $("#game").append($("<h3>").html("The correct answer was " + q.choices[q.answer] + "."));
         chosen = undefined;
-        console.log(chosen);
         showQuestion = setInterval(nextQuestion, 1000 * 5);
     };
 
@@ -125,7 +134,8 @@ $(document).ready(function() {
             .append($("<h2>").text("Correct Answers: " + answers.correct))
             .append($("<h2>").text("Wrong Answers: " + answers.wrong))
             .append($("<h2>").text("Unanswered: " + answers.unanswered))
-            .append($("<button>").attr("id", "restart").text("Try Again"));
+            .append($("<button>").attr("id", "restart").text("Try Again"))
+            .append($("<img>").attr({ src: "assets/images/restart.png", id: "restart" }));
     };
 
     // Increments through the questions and records correct answers.
@@ -134,10 +144,8 @@ $(document).ready(function() {
         count++;
         clearInterval(showQuestion);
         if (!(count === questions.length)) {
-            console.log("first");
             startQuestions();
         } else {
-            console.log("second");
             displayResults();
         };
     };

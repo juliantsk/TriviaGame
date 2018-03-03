@@ -6,30 +6,39 @@
     --oval-unit: 8.2vmax;
     --oval-height: calc(var(--oval-unit)*1.5);
     --oval-width: calc(var(--oval-unit)*4);
-    --title-height: 2vmax;
-    --shadow: 0.1vmax 0.2vmax black;
+    --title-height: 5vmax;
+    --shadow: 0.05vmax 0.12vmax black;
+    --font-size: 2vmax;
+    --line-height: 3vmax;
 }
 
 body {
     font-family: 'Oswald', sans-serif;
-    font-size: 2vmax;
-    color: #02add8;
+    font-size: var(--font-size);
+    color: var(--lBlue);
     text-shadow: var(--shadow);
-    line-height: 3vmax;
+    line-height: var(--line-height);
     margin: auto 0;
     text-align: center;
     background-color: var(--dBlue);
 }
 
+#oval,
+.triangle-down,
+.title,
+#answer,
+#tv-image {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
 .title {
+    z-index: 2;
     font-size: 6vmax;
     font-family: 'Simonetta', cursive;
     color: var(--red);
-    z-index: 2;
-    position: absolute;
-    top: calc(var(--title-height) + 8.75vmax);
-    left: 50%;
-    transform: translate(-50%, 0);
+    top: calc(var(--title-height) + 5.75vmax);
 }
 
 #seinfeld {
@@ -37,16 +46,33 @@ body {
     top: var(--title-height);
 }
 
+.triangle-down {
+    z-index: 3;
+    top: calc(var(--title-height) - 1.9vmax);
+    width: 0;
+    height: 0;
+    border-left: 1vmax solid transparent;
+    border-right: 1vmax solid transparent;
+    border-top: 2vmax solid var(--lBlue);
+    left: 44.7%;
+    transform: translate(-50%, 0);
+}
+
+#triangle-shadow {
+    z-index: 2;
+    left: 44.85%;
+    top: calc(var(--title-height) - 1.8vmax);
+    border-top: 2vmax solid black;
+}
+
 #oval {
-    box-shadow: var(--shadow);
-    position: absolute;
-    top: calc(var(--title-height) - 1vmax);
+    z-index: 1;
+    top: calc(var(--title-height) - 5.5vmax);
     left: 50%;
     margin: auto 0px;
-    z-index: 1;
     width: var(--oval-width);
     height: var(--oval-height);
-    transform: rotate(-7deg) translate(-50%, 0);
+    transform: rotate(-8deg) translate(-50%, 0);
     background: var(--yellow);
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -54,31 +80,132 @@ body {
 }
 
 #game {
-    margin: 22vmax auto 0 auto;
-    max-width: calc(960px - 1vw)
+    margin: 16vmax auto 0 auto;
 }
 
 button {
+    position: relative;
     font-family: 'Oswald', sans-serif;
     background-color: var(--red);
     border: none;
-    color: var(--lBlue);
-    padding: 5vmax;
+    text-shadow: var(--shadow);
+    box-shadow: var(--shadow);
+    color: var(--yellow);
+    padding: 3vmax 5vmax;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 3vmax;
+    -moz-border-radius: 25%;
+    -webkit-border-radius: 25%;
+    border-radius: 25%;
 }
 
-#start {}
+img#start {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+}
 
-h2 {}
+button#start {
+    top: 7vmax;
+}
 
-.choices:hover {
+h2 {
+    color: var(--red);
+    font-size: calc(var(--font-size) * 1.1);
+    line-height: calc(var(--line-height) * 1.1);
+}
+
+h3 {
+    line-height: calc(var(--line-height)* .7);
+}
+
+#remaining {
+    font-size: calc(var(--font-size)*.7);
+    color: white;
+}
+
+.choices {
+    line-height: var(--line-height);
+    padding: 1vmax 0;
+    -moz-border-radius: 35%;
+    -webkit-border-radius: 35%;
+    border-radius: 50%;
+}
+
+.choices:hover,
+.choices:active {
     color: var(--red);
     background-color: var(--yellow);
 }
 
-h3 {}
+#answer {
+    line-height: var(--line-height);
+}
 
-#restart {}
+#tv-image {
+    margin: 0;
+    padding: 0;
+}
+
+#tv {
+    height: 35vmax;
+    width: auto;
+    position: relative;
+    z-index: -1;
+}
+
+#result-text {
+    color: var(--lBlue);
+    font-size: calc(var(--font-size)*5);
+    position: relative;
+    top: 25vmax;
+}
+
+.result {
+    height: 31vmax;
+    width: auto;
+    position: absolute;
+    top: 6vmax;
+    left: 44%;
+    transform: translate(-50%, 0);
+    z-index: -2;
+}
+
+img#restart {
+    position: absolute;
+    z-index: -1;
+    right: 20vmax;
+    bottom: 31vmax;
+}
+
+@media screen and (max-width: 750px) {
+     :root {
+        --font-size: 6vmax;
+        --line-height: 6vmax;
+    }
+    .title {
+        width: 100%;
+    }
+    .triangle-down {
+        display: none;
+    }
+    .choices {
+        margin: auto;
+    }
+    #tv-image {
+        position: absolute;
+        bottom: 0px;
+    }
+    .result {
+        top: 9vmax;
+    }
+    #result-text {
+        font-size: calc(var(--font-size)*2);
+    }
+    img#start,
+    img#restart {
+        bottom: 0px;
+    }
+}
