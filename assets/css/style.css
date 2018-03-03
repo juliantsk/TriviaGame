@@ -169,7 +169,7 @@ h3 {
 
 #result-text {
     color: var(--lBlue);
-    font-size: calc(var(--font-size)*2.5);
+    font-size: calc(var(--font-size)*3);
     position: relative;
     top: 25vmax;
 }
