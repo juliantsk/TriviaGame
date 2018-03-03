@@ -8,7 +8,7 @@
     --oval-width: calc(var(--oval-unit)*4);
     --title-height: 5vmax;
     --shadow: 0.05vmax 0.12vmax black;
-    --font-size: 2vmax;
+    --font-size: 3vmax;
     --line-height: 3vmax;
 }
 
@@ -108,6 +108,7 @@ button {
     -moz-border-radius: 25%;
     -webkit-border-radius: 25%;
     border-radius: 25%;
+    margin: 5vmax;
 }
 
 img#start {
@@ -154,6 +155,7 @@ h3 {
 }
 
 #tv-image {
+    top: 22vmax;
     margin: 0;
     padding: 0;
 }
@@ -167,7 +169,7 @@ h3 {
 
 #result-text {
     color: var(--lBlue);
-    font-size: calc(var(--font-size)*5);
+    font-size: calc(var(--font-size)*2.5);
     position: relative;
     top: 25vmax;
 }
@@ -176,7 +178,7 @@ h3 {
     height: 31vmax;
     width: auto;
     position: absolute;
-    top: 6vmax;
+    top: 7vmax;
     left: 44%;
     transform: translate(-50%, 0);
     z-index: -2;
@@ -186,7 +188,7 @@ img#restart {
     position: absolute;
     z-index: -1;
     right: 20vmax;
-    bottom: 31vmax;
+    bottom: -3vmax;
 }
 
 
@@ -206,10 +208,12 @@ img#restart {
     .triangle-down {
         display: none;
     }
+    button {}
     .choices {
         margin: auto;
     }
     #tv-image {
+        top: initial;
         position: absolute;
         bottom: 0px;
     }
