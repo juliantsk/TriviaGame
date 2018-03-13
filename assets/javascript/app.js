@@ -107,21 +107,21 @@ $(document).ready(function() {
                 .append($("<div>").attr("id", "tv-image")
                     .append($("<h2>").attr("id", "result-text").html("Yes!"))
                     .append($("<img>").attr({ src: "assets/images/tv.png", id: "tv" }))
-                    .append($("<img>").attr({ src: "assets/images/yes.png", class: "result", id: "yes" })));
+                    .append($("<img>").attr({ src: "assets/images/yes.png", class: "result", id: "yes", alt: "yes" })));
         } else if (chosen == null) {
             answers.unanswered += 1;
             $("#game")
                 .append($("<div>").attr("id", "tv-image")
                     .append($("<h2>").attr("id", "result-text").html("Out of Time!"))
                     .append($("<img>").attr({ src: "assets/images/tv.png", id: "tv" }))
-                    .append($("<img>").attr({ src: "assets/images/timeout.png", class: "result", id: "timeout" })));
+                    .append($("<img>").attr({ src: "assets/images/timeout.png", class: "result", id: "timeout", alt: "timeout" })));
         } else {
             answers.wrong += 1;
             $("#game")
                 .append($("<div>").attr("id", "tv-image")
                     .append($("<h2>").attr("id", "result-text").html("Nope!"))
                     .append($("<img>").attr({ src: "assets/images/tv.png", id: "tv" }))
-                    .append($("<img>").attr({ src: "assets/images/nope.png", class: "result", id: "nope" })));
+                    .append($("<img>").attr({ src: "assets/images/nope.png", class: "result", id: "nope", alt: "nope" })));
         }
         chosen = undefined;
         showQuestion = setInterval(nextQuestion, 1000 * 5);
@@ -135,7 +135,7 @@ $(document).ready(function() {
             .append($("<h2>").text("Wrong Answers: " + answers.wrong))
             .append($("<h2>").text("Unanswered: " + answers.unanswered))
             .append($("<button>").attr("id", "restart").text("Try Again"))
-            .append($("<img>").attr({ src: "assets/images/restart.png", id: "restart" }));
+            .append($("<img>").attr({ src: "assets/images/restart.png", id: "restart", alt: "restart" }));
     };
 
     // Increments through the questions and records correct answers.
